@@ -16,13 +16,18 @@ import com.amazon.speech.ui.Reprompt
 import com.amazon.speech.ui.SimpleCard
 import grails.config.Config
 import grails.core.support.GrailsConfigurationAware
+import org.codehaus.groovy.grails.commons.GrailsApplication
 
-{packageName}
 
-class ${className}Speechlet implements GrailsSpeechletClass, GrailsConfigurationAware {
+class ${className}Speechlet implements GrailsConfigurationAware {
 
+
+    GrailsApplication grailsApplication
 
     Config grailsConfig
+
+
+
 
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
             throws SpeechletException {
@@ -61,8 +66,8 @@ class ${className}Speechlet implements GrailsSpeechletClass, GrailsConfiguration
         card.setTitle("Twitter Search Results");
 
 
-        def speechText = "I will say something\n"
-        def cardText = "I will print something\n"
+        def speechText = "I will say something"
+        def cardText = "I will print something"
 
         // Create the plain text output.
         speech.setText(speechText)
