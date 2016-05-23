@@ -20,5 +20,5 @@ description("Creates a new Alexa skill Speechlet") {
 
 model = model( args[0] )
 render  template:"Speechlet.groovy",
-        destination: file( "grails-app/speechlets/$model.packagePath/${model.simpleName}Speechlet.groovy"),
+        destination: file( "grails-app/speechlet/$model.packagePath/${model.simpleName}Speechlet.groovy"),
         model: model

@@ -22,7 +22,7 @@ import org.codehaus.groovy.grails.commons.GrailsApplication
 class ${className}Speechlet implements GrailsConfigurationAware {
 
 
-    GrailsApplication grailsApplication
+    def grailsApplication
 
     Config grailsConfig
 

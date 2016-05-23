@@ -39,8 +39,15 @@ import static org.grails.io.support.GrailsResourceUtils.REGEX_FILE_SEPARATOR
  */
 public class SpeechletArtefactHandler extends ArtefactHandlerAdapter {
 
-    static final String TYPE = "Speechlet"
-    public static Pattern SPEECHLET_PATH_PATTERN = Pattern.compile(".+" + REGEX_FILE_SEPARATOR + GRAILS_APP_DIR + REGEX_FILE_SEPARATOR + "speechlets" + REGEX_FILE_SEPARATOR + "(.+)\\.(groovy)");
+    public static final String TYPE = "Speechlet"
+    public SpeechletArtefactHandler() {
+        super(TYPE, GrailsSpeechletClass.class, DefaultGrailsSpeechletClass.class, null);
+    }
+
+    public boolean isArtefactClass(Class clazz) {
+        return clazz != null && clazz.getName().endsWith(TYPE);
+    }
+   /* public static Pattern SPEECHLET_PATH_PATTERN = Pattern.compile(".+" + REGEX_FILE_SEPARATOR + GRAILS_APP_DIR + REGEX_FILE_SEPARATOR + "speechlets" + REGEX_FILE_SEPARATOR + "(.+)\\.(groovy)");
 
     public SpeechletArtefactHandler() {
         super(TYPE, GrailsSpeechletClass.class, DefaultGrailsSpeechletClass.class, TYPE)
@@ -60,15 +67,6 @@ public class SpeechletArtefactHandler extends ArtefactHandlerAdapter {
 
     boolean isArtefactClass(Class clazz) {
         // class shouldn't be null and should ends with Speechlet suffix
-        if (clazz == null || !clazz.getName().endsWith(DefaultGrailsSpeechletClass.SPEECHLET)) return false
-        // and should have one of execute() or execute(JobExecutionContext) methods defined
-        Method method = ReflectionUtils.findMethod(clazz, "onSessionStarted")
-        Method onlaunch = ReflectionUtils.findMethod(clazz, "onLaunch")
-
-        /*if (method == null) {
-            // also check for the execution context as a variable because that's what's being passed
-            method = ReflectionUtils.findMethod(clazz, "onSessionStarted", [SessionStartedRequest] as Class[])
-        }*/
-        method != null && onlaunch != null
-    }
+        return  (clazz != null && clazz.getName().endsWith(DefaultGrailsSpeechletClass.SPEECHLET))
+    }*/
 }

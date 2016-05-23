@@ -30,76 +30,76 @@ import java.util.Map;
  * @author Lee Fox
  * @since 0.1
  */
-public interface GrailsSpeechletClass extends GrailsClass  {
+public interface GrailsSpeechletClass { }
 
 
-    /**
+   /* *//**
      * Grails config is injected here for configuration of your speechlet
      * @param co Config
-     */
+     *//*
     void setConfiguration(Config co);
 
 
-    /**
+    *//**
      * this is called by alexa when a session/interaction is started
      * @param request speechlet requet
      * @param session this contains session ID, user (if used linked accounts)
      * @throws SpeechletException
-     */
+     *//*
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
             throws SpeechletException;
 
-    /**
+    *//**
      * this is called after a session is established then started
      * @param request speechlet request
      * @param session this contains session ID, user (if used linked accounts)
      * @return SpeechletResponse
      * @throws SpeechletException
-     */
+     *//*
     public SpeechletResponse onLaunch(final LaunchRequest request, final Session session)
             throws SpeechletException;
 
-    /**
+    *//**
      * when alexa figured out an intent to run, based on your sample utterances it calls this
      * @param request speechlet request
      * @param session this contains session ID, user (if used linked accounts)
      * @return SpeechletResponse
      * @throws SpeechletException
-     */
+     *//*
     public SpeechletResponse onIntent(final IntentRequest request, final Session session)
             throws SpeechletException;
 
-    /**
+    *//**
      * when alexa figures out the interaction is done, this is the cleanup code for db entries and such
      * @param request speechlet request
      * @param session this contains session ID, user (if used linked accounts)
      * @throws SpeechletException
-     */
+     *//*
     public void onSessionEnded(final SessionEndedRequest request, final Session session)
             throws SpeechletException;
 
-    /**
+    *//**
      * default responder for a welcome message when skill is started
      * @return SpeechletResponse
-     */
+     *//*
     SpeechletResponse getWelcomeResponse();
 
-    /**
+    *//**
      * default responder when a help intent is launched on how to use your speechlet
      * @return SpeechletResponse
-     */
+     *//*
     SpeechletResponse getHelpResponse();
 
-    /**
+    *//**
      * if you are using account linking, this is used to send a card with a link to your app to get started
      * @param session
      * @return SpeechletResponse
-     */
-    SpeechletResponse createLinkCard(Session session);
+     *//*
+    SpeechletResponse createLinkCard(Session session);*/
 
 
 
 
 
 
-}
+//}

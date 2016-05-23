@@ -19,6 +19,8 @@ package alexa.skills;
 import com.amazon.speech.speechlet.*;
 import grails.config.Config;
 import org.grails.core.AbstractGrailsClass;
+import org.grails.core.AbstractInjectableGrailsClass;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,10 +35,17 @@ import java.util.Map;
  * @author Sergey Nebolsin (nebolsin@gmail.com)
  * @since 0.1
  */
-public class DefaultGrailsSpeechletClass extends AbstractGrailsClass implements GrailsSpeechletClass {
+public class DefaultGrailsSpeechletClass extends AbstractInjectableGrailsClass implements GrailsSpeechletClass {
 
-    public static final String SPEECHLET = "Speechlet";
-    private Map triggers = new HashMap();
+    public DefaultGrailsSpeechletClass(Class c) {
+        super(c, SpeechletArtefactHandler.TYPE);
+    }
+  /*  public class DefaultGrailsSpeechletClass extends AbstractInjectableGrailsClass implements GrailsGuardClass {
+        public DefaultGrailsGuardClass(Class c) {
+            super(c, GuardArtefactHandler.TYPE);
+        }
+    }*/
+   /* public static final String SPEECHLET = "Speechlet";
 
 
     public DefaultGrailsSpeechletClass(Class clazz) {
@@ -44,47 +53,51 @@ public class DefaultGrailsSpeechletClass extends AbstractGrailsClass implements 
 
     }
 
-    @Override
-    public void setConfiguration(Config co) {
 
+    public void setConfiguration(Config co) {
+            getMetaClass().invokeMethod(getReferenceInstance(), "SetConfiguration", new Object[]{});
     }
 
-    @Override
+
     public void onSessionStarted(SessionStartedRequest request, Session session) throws SpeechletException {
 
+            getMetaClass().invokeMethod(getReferenceInstance(), "onSessionStarted", new Object[]{});
     }
 
-    @Override
+
     public SpeechletResponse onLaunch(LaunchRequest request, Session session) throws SpeechletException {
-        return null;
+           getMetaClass().invokeMethod(getReferenceInstance(), "onLaunch", new Object[]{});
+           return null;
     }
 
-    @Override
+
     public SpeechletResponse onIntent(IntentRequest request, Session session) throws SpeechletException {
+        getMetaClass().invokeMethod(getReferenceInstance(), "onIntent", new Object[]{});
         return null;
     }
 
-    @Override
+
     public void onSessionEnded(SessionEndedRequest request, Session session) throws SpeechletException {
+        getMetaClass().invokeMethod(getReferenceInstance(), "onSessionEnded", new Object[]{});
 
     }
 
-    @Override
+
     public SpeechletResponse getWelcomeResponse() {
         return null;
     }
 
-    @Override
+
     public SpeechletResponse getHelpResponse() {
         return null;
     }
 
-    @Override
+
     public SpeechletResponse createLinkCard(Session session) {
         return null;
     }
 
-
+*/
 
 
 }

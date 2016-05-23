@@ -42,9 +42,10 @@ This plugin helps you make Alexa skills in Grails.
 
     // Online location of the plugin's browseable source code.
 //    def scm = [ url: "http://svn.codehaus.org/grails-plugins/" ]
+    def artefacts = [new SpeechletArtefactHandler()]
 
     Closure doWithSpring() { {->
-        grailsApplication.speechletClasses.each { GrailsSpeechletClass speechletClass ->
+        application.speechletClasses.each { GrailsSpeechletClass speechletClass ->
             configureSpeechletBeans.delegate = delegate
             configureSpeechletBeans(speechletClass)
         }
@@ -84,7 +85,6 @@ This plugin helps you make Alexa skills in Grails.
 
         try {
             "${fullName}Class"(MethodInvokingFactoryBean) {
-                targetObject = ref("grailsApplication", false)
                 targetMethod = "getArtefact"
                 arguments = [SpeechletArtefactHandler.TYPE, speechletClass.fullName]
             }
@@ -92,7 +92,7 @@ This plugin helps you make Alexa skills in Grails.
             "${fullName}"(ref("${fullName}Class")) { bean ->
                 bean.factoryMethod = "newInstance"
                 bean.autowire = "byName"
-                bean.scope = "prototype"
+                bean.scope = "singleton"
             }
         } catch (Exception e) {
             log.error("Error declaring ${fullName}Detail bean in context", e)
