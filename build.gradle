@@ -17,6 +17,7 @@ plugins {
 }
 
 version "0.1.0-SNAPSHOT"
+
 group "org.grails.plugins"
 
 apply plugin: 'maven-publish'
@@ -67,10 +68,8 @@ dependencies {
     compile 'com.amazon.alexa:alexa-skills-kit:1.1.2'
 
     compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'commons-io:commons-io:2.4'
 
-    compile 'org.grails.plugins:spring-security-core:3.0.4'
-    compile "org.grails.plugins:spring-security-ui:3.0.0.M2"
-    compile 'org.grails.plugins:spring-security-oauth2-provider:3.0.0-RC1'
 }
 
 task wrapper(type: Wrapper) {
