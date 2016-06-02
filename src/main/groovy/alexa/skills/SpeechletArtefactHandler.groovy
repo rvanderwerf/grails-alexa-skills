@@ -16,57 +16,52 @@
 
 package alexa.skills
 
-import com.amazon.speech.speechlet.SessionStartedRequest
+
 import grails.core.ArtefactHandlerAdapter
+import groovy.util.logging.Slf4j
 import org.codehaus.groovy.ast.ClassNode
+import org.codehaus.groovy.ast.InnerClassNode
 import org.grails.compiler.injection.GrailsASTUtils
-import org.springframework.util.ReflectionUtils
-
-import java.lang.reflect.Method
+import java.lang.reflect.Modifier
 import java.util.regex.Pattern
-
 import static org.grails.io.support.GrailsResourceUtils.GRAILS_APP_DIR
 import static org.grails.io.support.GrailsResourceUtils.REGEX_FILE_SEPARATOR
 
 /**
  * Grails artifact handler for speechlet classes.
  *
- * @author Marc Palmer (marc@anyware.co.uk)
- * @author Sergey Nebolsin (nebolsin@gmail.com)
  * @author Ryan Vanderwerf
- * @author Lee Fox
- * @since 0.1
  */
+@Slf4j
 public class SpeechletArtefactHandler extends ArtefactHandlerAdapter {
 
     public static final String TYPE = "Speechlet"
     public SpeechletArtefactHandler() {
-        super(TYPE, GrailsSpeechletClass.class, DefaultGrailsSpeechletClass.class, null);
+        super(TYPE, GrailsSpeechletClass.class, DefaultGrailsSpeechletClass.class, TYPE);
     }
 
     public boolean isArtefactClass(Class clazz) {
         return clazz != null && clazz.getName().endsWith(TYPE);
     }
-   /* public static Pattern SPEECHLET_PATH_PATTERN = Pattern.compile(".+" + REGEX_FILE_SEPARATOR + GRAILS_APP_DIR + REGEX_FILE_SEPARATOR + "speechlets" + REGEX_FILE_SEPARATOR + "(.+)\\.(groovy)");
+    public static Pattern SPEECHLET_PATH_PATTERN = Pattern.compile(".+" + REGEX_FILE_SEPARATOR + GRAILS_APP_DIR + REGEX_FILE_SEPARATOR + "speechlets" + REGEX_FILE_SEPARATOR + "(.+)\\.(groovy)");
 
-    public SpeechletArtefactHandler() {
-        super(TYPE, GrailsSpeechletClass.class, DefaultGrailsSpeechletClass.class, TYPE)
-    }
+
 
     boolean isArtefact(ClassNode classNode) {
+        log.debug("eval artifact ${classNode.getName()}")
         if(classNode == null ||
            !isValidArtefactClassNode(classNode, classNode.getModifiers()) ||
-           classNode.getName().endsWith(DefaultGrailsSpeechletClass.SPEECHLET)) {
+           !classNode.getName().endsWith(TYPE)) {
+            log.debug("!classNode.isEnum()=${classNode.isEnum()} !classNode.isInterface()=${classNode.isInterface()} !Modifier.isAbstract(modifiers)=${Modifier.isAbstract(classNode.getModifiers())} !(classNode instanceof InnerClassNode)=${((classNode instanceof InnerClassNode))} innerClassNode=${InnerClassNode}")
+            log.debug("********* is artefact false, isValidArtefactClassNode=${isValidArtefactClassNode(classNode, classNode.getModifiers())} or class name ${classNode.getName()} does not end with ${SpeechletArtefactHandler.TYPE}")
+
             return false
         }
 
         URL url = GrailsASTUtils.getSourceUrl(classNode)
-
+        log.debug("url=${url.toString()} url.getFile()=${url.getFile().toString()}")
         url &&  SPEECHLET_PATH_PATTERN.matcher(url.getFile()).find()
     }
 
-    boolean isArtefactClass(Class clazz) {
-        // class shouldn't be null and should ends with Speechlet suffix
-        return  (clazz != null && clazz.getName().endsWith(DefaultGrailsSpeechletClass.SPEECHLET))
-    }*/
+
 }

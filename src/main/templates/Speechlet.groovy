@@ -16,18 +16,23 @@ import com.amazon.speech.ui.Reprompt
 import com.amazon.speech.ui.SimpleCard
 import grails.config.Config
 import grails.core.support.GrailsConfigurationAware
-import org.codehaus.groovy.grails.commons.GrailsApplication
+import com.amazon.speech.speechlet.Speechlet
+import groovy.util.logging.Slf4j
 
 
-class ${className}Speechlet implements GrailsConfigurationAware {
+@Slf4j
+class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
 
 
     def grailsApplication
 
     Config grailsConfig
+    def speechletService
 
 
-
+    def index() {
+        speechletService.doSpeechlet(request,response, this)
+    }
 
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
             throws SpeechletException {
