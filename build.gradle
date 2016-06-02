@@ -16,7 +16,7 @@ plugins {
     id "com.jfrog.bintray" version "1.2"
 }
 
-version "0.1.0-SNAPSHOT"
+version "0.1.0"
 
 group "org.grails.plugins"
 
@@ -74,4 +74,18 @@ dependencies {
 
 task wrapper(type: Wrapper) {
     gradleVersion = gradleWrapperVersion
+}
+
+bintray {
+  pkg {
+    userOrg = '' // If you want to publish to an organization
+    name = "alexa-skills"
+    repo = "alexa-skills"
+    issueTrackerUrl = "https://github.com/rvanderwerf/grails-alexa-skills/issues"
+    vcsUrl = "https://github.com/rvanderwerf/grails-alexa-skills"
+    version {
+      attributes = ['grails-plugin': "$project.group:alexa-skills"]
+      name = project.version
+    }
+  }
 }
