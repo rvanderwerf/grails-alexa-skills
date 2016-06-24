@@ -37,7 +37,7 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
             throws SpeechletException {
         log.info("onSessionStarted requestId={}, sessionId={}", request.getRequestId(),
-                session.getSessionId());
+                session.getSessionId())
         // any initialization logic goes here
     }
 
@@ -45,30 +45,30 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
     public SpeechletResponse onLaunch(final LaunchRequest request, final Session session)
             throws SpeechletException {
         log.info("onLaunch requestId={}, sessionId={}", request.getRequestId(),
-                session.getSessionId());
+                session.getSessionId())
 
-        return getWelcomeResponse();
+        return getWelcomeResponse()
     }
 
 
     public SpeechletResponse onIntent(final IntentRequest request, final Session session)
             throws SpeechletException {
         log.info("onIntent requestId={}, sessionId={}", request.getRequestId(),
-                session.getSessionId());
+                session.getSessionId())
 
-        Intent intent = request.getIntent();
+        Intent intent = request.getIntent()
 
 
-        String intentName = (intent != null) ? intent.getName() : null;
+        String intentName = (intent != null) ? intent.getName() : null
         Slot query = intent.getSlot("SearchTerm")
         Slot count = intent.getSlot("Count")
 
         log.debug("invoking intent:\${intentName}")
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech()
 
         // Create the Simple card content.
-        SimpleCard card = new SimpleCard();
-        card.setTitle("Twitter Search Results");
+        SimpleCard card = new SimpleCard()
+        card.setTitle("Twitter Search Results")
 
 
         def speechText = "I will say something"
@@ -92,12 +92,12 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
     public void onSessionEnded(final SessionEndedRequest request, final Session session)
             throws SpeechletException {
         log.info("onSessionEnded requestId={}, sessionId={}", request.getRequestId(),
-                session.getSessionId());
+                session.getSessionId())
         // any cleanup logic goes here
     }
 
     SpeechletResponse getWelcomeResponse()  {
-        String speechText = "Say something when the skill starts";
+        String speechText = "Say something when the skill starts"
 
         // Create the Simple card content.
         SimpleCard card = new SimpleCard()
@@ -120,7 +120,7 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
      * @return
      */
     SpeechletResponse getHelpResponse() {
-        String speechText = "Say something when the skill need help";
+        String speechText = "Say something when the skill need help"
 
         // Create the Simple card content.
         SimpleCard card = new SimpleCard()
@@ -150,7 +150,7 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
 
         // Create the Simple card content.
         LinkAccountCard card = new LinkAccountCard()
-        //card.setTitle("LinkAccount");
+        //card.setTitle("LinkAccount")
 
 
         // Create the plain text output.
