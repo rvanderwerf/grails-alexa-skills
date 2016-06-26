@@ -1,8 +1,5 @@
 package ${packageName}
 
-import alexa.skills.GrailsSpeechletClass
-import com.amazon.speech.slu.Intent
-import com.amazon.speech.slu.Slot
 import com.amazon.speech.speechlet.IntentRequest
 import com.amazon.speech.speechlet.LaunchRequest
 import com.amazon.speech.speechlet.Session
@@ -14,15 +11,15 @@ import com.amazon.speech.ui.LinkAccountCard
 import com.amazon.speech.ui.PlainTextOutputSpeech
 import com.amazon.speech.ui.Reprompt
 import com.amazon.speech.ui.SimpleCard
+import com.amazon.speech.speechlet.Speechlet
 import grails.config.Config
 import grails.core.support.GrailsConfigurationAware
-import com.amazon.speech.speechlet.Speechlet
+import grails.web.Controller
 import groovy.util.logging.Slf4j
 
 
 @Slf4j
 class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
-
 
     def grailsApplication
 
@@ -34,14 +31,27 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
         speechletService.doSpeechlet(request,response, this)
     }
 
+    /**
+     * This is called when the session is started
+     * Add an initialization setup for the session here
+     * @param request SessionStartedRequest
+     * @param session Session
+     * @throws SpeechletException
+     */
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
             throws SpeechletException {
         log.info("onSessionStarted requestId={}, sessionId={}", request.getRequestId(),
                 session.getSessionId())
-        // any initialization logic goes here
+
     }
 
-
+    /**
+     * This is called when the skill/speechlet is launched on Alexa
+     * @param request LaunchRequest
+     * @param session Session
+     * @return
+     * @throws SpeechletException
+     */
     public SpeechletResponse onLaunch(final LaunchRequest request, final Session session)
             throws SpeechletException {
         log.info("onLaunch requestId={}, sessionId={}", request.getRequestId(),
@@ -50,35 +60,29 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
         return getWelcomeResponse()
     }
 
-
+    /**
+     * This is the method fired when an intent is called
+     *
+     * @param request IntentRequest intent called from Alexa
+     * @param session Session
+     * @return SpeechletResponse tell or ask type
+     * @throws SpeechletException
+     */
     public SpeechletResponse onIntent(final IntentRequest request, final Session session)
             throws SpeechletException {
         log.info("onIntent requestId={}, sessionId={}", request.getRequestId(),
                 session.getSessionId())
 
-        Intent intent = request.getIntent()
-
-
-        String intentName = (intent != null) ? intent.getName() : null
-        Slot query = intent.getSlot("SearchTerm")
-        Slot count = intent.getSlot("Count")
-
         log.debug("invoking intent:\${intentName}")
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech()
-
         // Create the Simple card content.
-        SimpleCard card = new SimpleCard()
-        card.setTitle("Twitter Search Results")
-
-
+        SimpleCard card = new SimpleCard(title:"Twitter Search Results")
         def speechText = "I will say something"
         def cardText = "I will print something"
-
         // Create the plain text output.
         speech.setText(speechText)
         card.setContent(cardText)
-
-        return SpeechletResponse.newTellResponse(speech, card)
+        SpeechletResponse.newTellResponse(speech, card)
 
     }
     /**
@@ -89,6 +93,12 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
         this.grailsConfig = co
     }
 
+    /**
+     * this is where you do session cleanup
+     * @param request SessionEndedRequest
+     * @param session
+     * @throws SpeechletException
+     */
     public void onSessionEnded(final SessionEndedRequest request, final Session session)
             throws SpeechletException {
         log.info("onSessionEnded requestId={}, sessionId={}", request.getRequestId(),
@@ -100,19 +110,15 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
         String speechText = "Say something when the skill starts"
 
         // Create the Simple card content.
-        SimpleCard card = new SimpleCard()
-        card.setTitle("YourWelcomeCardTitle")
-        card.setContent(speechText)
+        SimpleCard card = new SimpleCard(title: "YourWelcomeCardTitle", content: speechText)
 
         // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech()
-        speech.setText(speechText)
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech(text:speechText)
 
         // Create reprompt
-        Reprompt reprompt = new Reprompt()
-        reprompt.setOutputSpeech(speech)
+        Reprompt reprompt = new Reprompt(outputSpeech: speech)
 
-        return SpeechletResponse.newAskResponse(speech, reprompt, card)
+        SpeechletResponse.newAskResponse(speech, reprompt, card)
     }
 
     /**
@@ -121,22 +127,14 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
      */
     SpeechletResponse getHelpResponse() {
         String speechText = "Say something when the skill need help"
-
         // Create the Simple card content.
-        SimpleCard card = new SimpleCard()
-        card.setTitle("YourHelpCardTitle")
-        card.setContent(speechText)
-
+        SimpleCard card = new SimpleCard(title:"YourHelpCardTitle",
+                content:speechText)
         // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech()
-        speech.setText(speechText)
-
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech(text:speechText)
         // Create reprompt
-        Reprompt reprompt = new Reprompt()
-        reprompt.setOutputSpeech(speech)
-
-        return SpeechletResponse.newAskResponse(speech, reprompt, card)
-
+        Reprompt reprompt = new Reprompt(outputSpeech: speech)
+        SpeechletResponse.newAskResponse(speech, reprompt, card)
     }
 
     /**
@@ -147,22 +145,32 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
     SpeechletResponse createLinkCard(Session session) {
 
         String speechText = "Please use the alexa app to link account."
-
         // Create the Simple card content.
         LinkAccountCard card = new LinkAccountCard()
-        //card.setTitle("LinkAccount")
-
-
         // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech()
-        speech.setText(speechText)
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech(text:speechText)
         log.debug("Session ID=\${session.sessionId}")
         // Create reprompt
-        Reprompt reprompt = new Reprompt()
-        reprompt.setOutputSpeech(speech)
-        //session.finalize()
+        Reprompt reprompt = new Reprompt(outputSpeech: speech)
+        SpeechletResponse.newTellResponse(speech, card)
+    }
 
-        return SpeechletResponse.newTellResponse(speech, card)
+}
+
+
+/**
+ * this inner controller handles incoming requests - be sure to white list it with SpringSecurity
+ * or whatever you are using
+ */
+@Controller
+class ${grails.util.GrailsNameUtils.getLogicalName(className,"Controller")}Controller {
+
+    def speechletService
+    def ${grails.util.GrailsNameUtils.getLogicalPropertyName(className,"Speechlet")}Speechlet
+
+
+    def index() {
+        speechletService.doSpeechlet(request,response, ${grails.util.GrailsNameUtils.getLogicalPropertyName(className,"Speechlet")}Speechlet)
     }
 
 }
