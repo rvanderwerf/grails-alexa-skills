@@ -13,6 +13,14 @@ dependencies {
 }
 ```
 
+also if you have issues resolving the plugin, try adding my bintray repo (NOT to buildscript block but the lower one):
+
+```
+
+repositories {
+    maven { url  "http://dl.bintray.com/rvanderwerf/alexa-skills" }
+}
+
 How it works
 ============
 run 'grails create-speechlet <classPrefix>'
