@@ -3,6 +3,16 @@ This is the Alexa skills Plugin!
 This plugin helps you create Speechlets/Skills on Grails. It will create a starter class for you
 so you can get running quickly making your own skills.
 
+Installation
+============
+
+add the following to the dependencies {} block to your build.gradle:
+
+dependencies {
+     compile "org.grails.plugins:alexa-skills:0.1.1"
+}
+
+
 How it works
 ============
 run 'grails create-speechlet <classPrefix>'
