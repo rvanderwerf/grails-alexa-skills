@@ -21,6 +21,8 @@ repositories {
     maven { url  "http://dl.bintray.com/rvanderwerf/alexa-skills" }
 }
 
+```
+
 How it works
 ============
 run 'grails create-speechlet <classPrefix>'
