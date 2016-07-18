@@ -137,7 +137,7 @@ The picture above give you an idea of how it works (from Amazon's site). Let's g
 Intents are sort of like simplified Intents on android if you have every done Android coding. They signal an intention for a command to run to do something.
 
 Let's look at an example one to get an idea:
-{% highlight json %}
+```
 {
   "intents": [
     {
@@ -163,7 +163,7 @@ Let's look at an example one to get an idea:
     }
   ]
 }
-{% endhighlight %}
+```
 
 Here this application can trigger 3 intents: ResponseIntent, QuestionCountIntent, and HelpIntent. You use JSON to tell it what these are.
 You can define 'slots' which is the expected responses which are comprised of a name and Type. There are pre-defined data types you can use
@@ -220,7 +220,7 @@ Now let's create a skill from the command line:
 
 Now let's see what it's created in grails-app/speechlets:
 
-{% highlight groovy %}
+```
 
 @Slf4j
 class SkillsTestSpeechlet implements GrailsConfigurationAware, Speechlet {
@@ -361,12 +361,12 @@ class SkillsTestSpeechlet implements GrailsConfigurationAware, Speechlet {
 
 }
 
-{% endhighlight %}
+```
  
 Also the plugin will generate a Controller class embedded in your Speechlet file. If you are using Spring Security, you will want to make sure that uri is
  assessable to the outside to the Alexa service can contact it (there are some requirements I'll fill you in on later): 
 
-{% highlight groovy %}
+```
 
 /**
  * this controller handles incoming requests - be sure to white list it with SpringSecurity
@@ -385,7 +385,7 @@ class SkillsTestController {
 
 }
 
-{% endhighlight %}
+```
 
 The speechlet artefact will be registered as a Spring bean so it's automatically injected. There is also a service the plugin provides to handle the boring
 stuff like verifying the request, checking the app ID (more on that later) and the plumbing that calls your skill.
