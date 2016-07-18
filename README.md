@@ -58,7 +58,8 @@ Here's the config values you can set in application.yml or application.groovy:
  Recommended usage with a Controller
  =============
  
- `class TestController {
+ ```
+ class TestController {
  
      def speechletService
      def testSpeechlet
@@ -68,8 +69,8 @@ Here's the config values you can set in application.yml or application.groovy:
          speechletService.doSpeechlet(request,response, testSpeechlet)
      }
  
- }`
- 
+ }
+ ```
  
 Here you see the speechlet is turned into a Spring bean, and you invoke the speechlet service and pass it in.
 Likely we could turn the speechlet artefact class into a controller itself in the future to skip this.
