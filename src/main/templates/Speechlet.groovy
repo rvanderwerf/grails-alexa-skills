@@ -11,6 +11,13 @@ import com.amazon.speech.ui.LinkAccountCard
 import com.amazon.speech.ui.PlainTextOutputSpeech
 import com.amazon.speech.ui.Reprompt
 import com.amazon.speech.ui.SimpleCard
+import com.amazon.speech.speechlet.Context
+import com.amazon.speech.speechlet.PlaybackFailedRequest
+import com.amazon.speech.speechlet.PlaybackFinishedRequest
+import com.amazon.speech.speechlet.PlaybackNearlyFinishedRequest
+import com.amazon.speech.speechlet.PlaybackStartedRequest
+import com.amazon.speech.speechlet.PlaybackStoppedRequest
+import com.amazon.speech.speechlet.SystemExceptionEncounteredRequest
 import com.amazon.speech.speechlet.Speechlet
 import grails.config.Config
 import grails.core.support.GrailsConfigurationAware
@@ -29,6 +36,37 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
 
     def index() {
         speechletService.doSpeechlet(request,response, this)
+    }
+
+
+    @Override
+    SpeechletResponse onPlaybackStarted(PlaybackStartedRequest playbackStartedRequest, Context context) throws SpeechletException {
+        return null
+    }
+
+    @Override
+    SpeechletResponse onPlaybackFinished(PlaybackFinishedRequest playbackFinishedRequest, Context context) throws SpeechletException {
+        return null
+    }
+
+    @Override
+    void onPlaybackStopped(PlaybackStoppedRequest playbackStoppedRequest, Context context) throws SpeechletException {
+
+    }
+
+    @Override
+    SpeechletResponse onPlaybackNearlyFinished(PlaybackNearlyFinishedRequest playbackNearlyFinishedRequest, Context context) throws SpeechletException {
+        return null
+    }
+
+    @Override
+    SpeechletResponse onPlaybackFailed(PlaybackFailedRequest playbackFailedRequest, Context context) throws SpeechletException {
+        return null
+    }
+
+    @Override
+    void onSystemException(SystemExceptionEncounteredRequest systemExceptionEncounteredRequest) throws SpeechletException {
+
     }
 
     /**
@@ -68,7 +106,7 @@ class ${className}Speechlet implements GrailsConfigurationAware, Speechlet {
      * @return SpeechletResponse tell or ask type
      * @throws SpeechletException
      */
-    public SpeechletResponse onIntent(final IntentRequest request, final Session session)
+    public SpeechletResponse onIntent(final IntentRequest request, final Session session, Context context)
             throws SpeechletException {
         log.info("onIntent requestId={}, sessionId={}", request.getRequestId(),
                 session.getSessionId())
