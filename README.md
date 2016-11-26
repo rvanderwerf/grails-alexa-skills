@@ -19,7 +19,11 @@ also if you have issues resolving the plugin, try adding my bintray repo (NOT to
 
 repositories {
     maven { url  "http://dl.bintray.com/rvanderwerf/alexa-skills" }
+    maven {
+            url  "http://dl.bintray.com/vanderfox/alexa-skills-kit-java" 
+    }
 }
+
 
 ```
 

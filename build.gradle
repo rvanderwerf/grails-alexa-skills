@@ -82,6 +82,8 @@ task wrapper(type: Wrapper) {
 
 bintray {
   pkg {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
     userOrg = '' // If you want to publish to an organization
     name = "alexa-skills"
     repo = "alexa-skills"
