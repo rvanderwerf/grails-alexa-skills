@@ -9,7 +9,7 @@ Installation
 add the following to the dependencies {} block to your build.gradle:
 ```
 dependencies {
-     compile "org.grails.plugins:alexa-skills:0.1.1"
+     compile "org.grails.plugins:alexa-skills:0.1.2"
 }
 ```
 
